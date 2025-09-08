@@ -1,0 +1,38 @@
+# for local models
+embeddings:
+  provider: huggingface
+  model_name: BAAI/bge-small-en-v1.5
+  dim: 384
+
+vector_store:
+  type: qdrant
+  p
+  ath: http://localhost:6333    # Qdrant URL
+  collection: default
+
+retriever:
+  top_k: 8
+  fetch_k: 50
+  mmr: 0.4
+  threshold: null
+
+reranker:
+  enabled: true
+  model: BAAI/bge-reranker-base
+
+llm:
+  provider: local
+  model_name: llama-3.1-8b-instruct # served via vLLM/Ollama
+  temperature: 0.2
+  max_tokens: 1024
+
+datasets:
+  publications:
+    vector_store:
+      collection: publications
+  docs:
+    vector_store:
+      collection: docs
+  wikipedia:
+    vector_store:
+      collection: wikipedia

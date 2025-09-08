@@ -1,0 +1,54 @@
+# single source of truth for my app
+embeddings:
+  provider: huggingface             # free, local via sentence-transformers
+  model_name: BAAI/bge-small-en-v1.5
+  dim: 384
+  normalize: true                   # cosine similarity works best if normalized
+
+vector_store:
+  type: faiss                       # free, local
+  path: data/indexes                # base path for indices
+  collection: default
+
+retriever:
+  top_k: 8
+  fetch_k: 40
+  mmr: 0.5                          # 0.3–0.7 recommended; 0 disables diversification
+  threshold: null                   # optional min similarity threshold
+
+reranker:
+  enabled: false                    # set true to enable local reranker (CPU/GPU heavy)
+  model: BAAI/bge-reranker-base     # requires FlagEmbedding if enabled
+
+llm:
+  provider: ollama                  # free, local runtime
+  model_name: "llama3.1:8b-instruct"  # alternatives below
+  temperature: 0.2
+  max_tokens: 1024
+
+datasets:
+  publications:
+    vector_store:
+      path: data/indexes/publications
+      collection: publications
+    retriever:
+      top_k: 10
+      mmr: 0.5
+
+  docs:
+    vector_store:
+      path: data/indexes/docs
+      collection: docs
+    retriever:
+      top_k: 8
+      fetch_k: 40
+      mmr: 0.3
+
+  wikipedia:
+    vector_store:
+      path: data/indexes/wikipedia
+      collection: wikipedia
+    retriever:
+      top_k: 12
+      fetch_k: 60
+      mmr: 0.7
