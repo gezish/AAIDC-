@@ -17,6 +17,6 @@ def load_config(path="config/config.yaml", dataset="publications"):
                 out[k] = v
         return out
 
-    merged = deep_merge(base, ds)  # dataset overrides base
+    merged = deep_merge(base, ds)
     merged["dataset"] = dataset
     return merged

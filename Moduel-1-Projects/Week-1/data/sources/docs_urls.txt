@@ -1,0 +1,3 @@
+https://python.langchain.com/docs/expression_language/get_started
+https://python.langchain.com/docs/modules/agents/quick_start
+https://langchain-ai.github.io/langgraph/how-tos/memory/
